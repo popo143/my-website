@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cyberpunk Experience</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Orbitron:400,500,600,700");
+      @import url("https://fonts.googleapis.com/css2?family=Rockybilly:wght@400;500&display=swap");
+
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 222.2 47.4% 11.2%;
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222.2 47.4% 11.2%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --card: transparent;
+        --card-foreground: 222.2 47.4% 11.2%;
+        --primary: 222.2 47.4% 11.2%;
+        --primary-foreground: 210 40% 98%;
+        --secondary: 210 40% 96.1%;
+        --secondary-foreground: 222.2 47.4% 11.2%;
+        --accent: 210 40% 96.1%;
+        --accent-foreground: 222.2 47.4% 11.2%;
+        --destructive: 0 100% 50%;
+        --destructive-foreground: 210 40% 98%;
+        --ring: 215 20.2% 65.1%;
+        --radius: 0.5rem;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: #0b0b0b;
+        color: white;
+        font-family: 'Orbitron', sans-serif;
+      }
+
+      /* Utility Classes */
+      .container {
+        max-width: 1728px;
+        margin: 0 auto;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .flex-col {
+        flex-direction: column;
+      }
+
+      .flex-row {
+        flex-direction: row;
+      }
+
+      .items-center {
+        align-items: center;
+      }
+
+      .justify-center {
+        justify-content: center;
+      }
+
+      .justify-between {
+        justify-content: space-between;
+      }
+
+      .w-full {
+        width: 100%;
+      }
+
+      .h-full {
+        height: 100%;
+      }
+
+      .h-auto {
+        height: auto;
+      }
+
+      .object-cover {
+        object-fit: cover;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .text-right {
+        text-align: right;
+      }
+
+      .relative {
+        position: relative;
+      }
+
+      .absolute {
+        position: absolute;
+      }
+
+      .bottom-1\/4 {
+        bottom: 25%;
+      }
+
+      .left-1\/2 {
+        left: 50%;
+      }
+
+      .transform {
+        transform: translate(-50%, 0);
+      }
+
+      .overflow-hidden {
+        overflow: hidden;
+      }
+
+      .mt-24 {
+        margin-top: 6rem;
+      }
+
+      .mb-24 {
+        margin-bottom: 6rem;
+      }
+
+      .mb-12 {
+        margin-bottom: 3rem;
+      }
+
+      .mb-8 {
+        margin-bottom: 2rem;
+      }
+
+      .mb-6 {
+        margin-bottom: 1.5rem;
+      }
+
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+
+      .mb-2 {
+        margin-bottom: 0.5rem;
+      }
+
+      .mt-4 {
+        margin-top: 1rem;
+      }
+
+      .px-8 {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+
+      .py-12 {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+
+      .p-6 {
+        padding: 1.5rem;
+      }
+
+      .p-8 {
+        padding: 2rem;
+      }
+
+      .py-6 {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+
+      .px-10 {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+
+      /* Grid */
+      .grid {
+        display: grid;
+      }
+
+      .grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+
+      .gap-8 {
+        gap: 2rem;
+      }
+
+      .gap-4 {
+        gap: 1rem;
+      }
+
+      /* Typography */
+      .text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+      }
+
+      .text-3xl {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+      }
+
+      .text-2xl {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+
+      .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+
+      .font-medium {
+        font-weight: 500;
+      }
+
+      .tracking-wider {
+        letter-spacing: 0.05em;
+      }
+
+      .tracking-\[3\.60px\] {
+        letter-spacing: 3.6px;
+      }
+
+      /* Colors */
+      .text-white {
+        color: white;
+      }
+
+      .text-\[\#fe0be5\] {
+        color: #fe0be5;
+      }
+
+      .text-gray-400 {
+        color: rgb(156, 163, 175);
+      }
+
+      .text-gray-500 {
+        color: rgb(107, 114, 128);
+      }
+
+      .text-yellow-400 {
+        color: rgb(250, 204, 21);
+      }
+
+      .bg-\[\#0b0b0b\] {
+        background-color: #0b0b0b;
+      }
+
+      .bg-\[\#0a0a0a\] {
+        background-color: #0a0a0a;
+      }
+
+      .bg-\[\#111111\] {
+        background-color: #111111;
+      }
+
+      .bg-\[\#fe0be5\] {
+        background-color: #fe0be5;
+      }
+
+      .bg-transparent {
+        background-color: transparent;
+      }
+
+      .bg-\[\#333333\] {
+        background-color: #333333;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        border-radius: 0;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        transition-property: color, background-color, border-color;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-outline-neon {
+        background-color: transparent;
+        border: 2px solid #fe0be5;
+        color: #fe0be5;
+      }
+
+      .btn-outline-neon:hover {
+        background-color: #fe0be5;
+        color: black;
+      }
+
+      .btn-neon {
+        background-color: #fe0be5;
+        color: black;
+      }
+
+      .btn-neon:hover {
+        background-color: transparent;
+        border: 1px solid #fe0be5;
+        color: #fe0be5;
+      }
+
+      /* Cards */
+      .card {
+        background-color: #111111;
+        border: 1px solid #333333;
+        overflow: hidden;
+      }
+
+      .h-64 {
+        height: 16rem;
+      }
+
+      .w-fit {
+        width: fit-content;
+      }
+
+      .transition-transform {
+        transition-property: transform;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+
+      .hover\:scale-105:hover {
+        transform: scale(1.05);
+      }
+
+      /* Social icons */
+      .social-icon {
+        border: 1px solid #333333;
+        border-radius: 9999px;
+        color: white;
+        padding: 0.5rem;
+        transition: all 150ms;
+      }
+
+      .social-icon:hover {
+        color: #fe0be5;
+        border-color: #fe0be5;
+      }
+
+      .rounded-full {
+        border-radius: 9999px;
+      }
+
+      /* Separator */
+      .separator {
+        height: 1px;
+        background-color: #333333;
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+
+      /* Media Queries */
+      @media (min-width: 768px) {
+        .md\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .md\:flex-row {
+          flex-direction: row;
+        }
+
+        .md\:mb-0 {
+          margin-bottom: 0;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .lg\:grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-[#0b0b0b] flex flex-row justify-center w-full">
+      <div class="bg-[#0b0b0b] overflow-hidden w-full max-w-[1728px] relative">
+        <!-- Header and Hero Section -->
+        <header class="relative">
+          <img
+            class="w-full h-auto object-cover"
+            alt="Cyberpunk cityscape"
+            src="https://c.animaapp.com/m89ib7kpjTJjYt/img/image-17.png"
+          />
+
+          <div class="absolute bottom-1/4 left-1/2 transform text-center">
+            <button class="btn btn-outline-neon py-6 px-10 text-xl tracking-wider font-['Orbitron']">
+              STEP INTO THE ZONE
+            </button>
+          </div>
+        </header>
+
+        <!-- VIP Zones Section -->
+        <section class="mt-24 mb-24 px-8">
+          <div class="text-center mb-12">
+            <h2 class="font-['Orbitron'] text-4xl font-medium text-white tracking-wider">
+              EXPLORE THE
+              <span class="font-['Rockybilly'] text-[#fe0be5]">
+                VIP
+              </span>
+              ZONES
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Zone 1 -->
+            <div class="card">
+              <div class="h-64 overflow-hidden">
+                <img
+                  src="https://c.animaapp.com/m89ib7kpjTJjYt/img/image-18.png"
+                  alt="NEON DISTRICT"
+                  class="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="font-['Orbitron'] text-xl text-[#fe0be5] mb-2 tracking-wider">
+                  NEON DISTRICT
+                </h3>
+                <p class="text-gray-400">
+                  Explore the vibrant streets filled with neon lights and cybernetic enhancements.
+                </p>
+                <button class="btn btn-outline-neon mt-4">
+                  LEARN MORE
+                </button>
+              </div>
+            </div>
+
+            <!-- Zone 2 -->
+            <div class="card">
+              <div class="h-64 overflow-hidden">
+                <img
+                  src="https://c.animaapp.com/m89ib7kpjTJjYt/img/subtract.png"
+                  alt="TECH HAVEN"
+                  class="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="font-['Orbitron'] text-xl text-[#fe0be5] mb-2 tracking-wider">
+                  TECH HAVEN
+                </h3>
+                <p class="text-gray-400">
+                  Discover the latest in cybernetic technology and digital experiences.
+                </p>
+                <button class="btn btn-outline-neon mt-4">
+                  LEARN MORE
+                </button>
+              </div>
+            </div>
+
+            <!-- Zone 3 -->
+            <div class="card">
+              <div class="h-64 overflow-hidden">
+                <img
+                  src="https://c.animaapp.com/m89ib7kpjTJjYt/img/s30-1.png"
+                  alt="SHADOW NEXUS"
+                  class="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="font-['Orbitron'] text-xl text-[#fe0be5] mb-2 tracking-wider">
+                  SHADOW NEXUS
+                </h3>
+                <p class="text-gray-400">
+                  Dive into the underground network where hackers and rebels gather.
+                </p>
+                <button class="btn btn-outline-neon mt-4">
+                  LEARN MORE
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Upcoming Events Section -->
+        <section class="relative mb-24 px-8">
+          <div class="text-right mb-12">
+            <h2 class="font-['Orbitron'] text-4xl font-medium text-white tracking-[3.60px]">
+              Upcoming
+              <span class="font-['Rockybilly'] text-[#fe0be5]">
+                Neon
+              </span>
+              Events
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Event 1 -->
+            <div class="card">
+              <div class="h-64 overflow-hidden">
+                <img
+                  src="https://c.animaapp.com/m89ib7kpjTJjYt/img/image-20.png"
+                  alt="NEURAL INTERFACE"
+                  class="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-center mb-2">
+                  <h3 class="font-['Orbitron'] text-xl text-[#fe0be5] tracking-wider">
+                    NEURAL INTERFACE
+                  </h3>
+                  <span class="text-yellow-400 font-['Orbitron']">OCT 15, 2023</span>
+                </div>
+                <p class="text-gray-400">
+                  Experience the future of mind-machine connection.
+                </p>
+                <button class="btn btn-outline-neon mt-4">
+                  RESERVE SPOT
+                </button>
+              </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="card">
+              <div class="h-64 overflow-hidden">
+                <img
+                  src="https://c.animaapp.com/m89ib7kpjTJjYt/img/image-21.png"
+                  alt="CHROME CARNIVAL"
+                  class="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-center mb-2">
+                  <h3 class="font-['Orbitron'] text-xl text-[#fe0be5] tracking-wider">
+                    CHROME CARNIVAL
+                  </h3>
+                  <span class="text-yellow-400 font-['Orbitron']">NOV 5, 2023</span>
+                </div>
+                <p class="text-gray-400">
+                  A celebration of cybernetic enhancements and body modifications.
+                </p>
+                <button class="btn btn-outline-neon mt-4">
+                  RESERVE SPOT
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exclusive Merch Section -->
+        <section class="mb-24 px-8">
+          <div class="text-center mb-12">
+            <h2 class="font-['Orbitron'] text-4xl font-medium text-white tracking-wider">
+              EXCLUSIVE
+              <span class="font-['Rockybilly'] text-[#fe0be5]">
+                MERCH
+              </span>
+            </h2>
+          </div>
+
+          <div class="card">
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <div class="p-8 flex flex-col justify-center">
+                <h3 class="font-['Orbitron'] text-2xl text-[#fe0be5] mb-4 tracking-wider">
+                  CYBERRUNNER X
+                </h3>
+                <p class="text-gray-400 mb-6">
+                  Limited edition footwear with integrated LED technology and weather-adaptive materials.
+                </p>
+                <div class="text-yellow-400 text-2xl font-['Orbitron'] mb-6">
+                  $299.99
+                </div>
+                <button class="btn btn-neon w-fit font-['Orbitron'] tracking-wider">
+                  PRE-ORDER NOW
+                </button>
+              </div>
+              <div class="overflow-hidden">
+                <img
+                  src="https://c.animaapp.com/m89ib7kpjTJjYt/img/image-22.png"
+                  alt="CYBERRUNNER X"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="bg-[#0a0a0a] py-12 px-8">
+          <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+              <div class="text-[#fe0be5] font-['Rockybilly'] text-3xl mb-4 md:mb-0">
+                Cyberpunk
+              </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center">
+              <div class="text-gray-500 mb-4 md:mb-0">
+                © 2023 CYBERPUNK EXPERIENCE. ALL RIGHTS RESERVED.
+              </div>
+              <div class="flex gap-4">
+                <!-- Facebook Icon -->
+                <a href="#" class="social-icon rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                  </svg>
+                </a>
+                
+                <!-- Twitter/X Icon -->
+                <a href="#" class="social-icon rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                  </svg>
+                </a>
+                
+                <!-- Instagram Icon -->
+                <a href="#" class="social-icon rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
